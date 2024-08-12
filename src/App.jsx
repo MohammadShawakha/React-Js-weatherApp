@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { getGeolocation } from "./utils/geo-util";
-const appid = "eec3ba575fb243ecd5b78d133bad8f5d";
+const appid = import.meta.env.ENV_API_KEY;
 const baseUrl = "http://api.openweathermap.org/data/2.5/forecast?";
 
 function App() {
