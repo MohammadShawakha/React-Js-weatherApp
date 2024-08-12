@@ -22,6 +22,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          ENV_API_KEY: ${{ secrets.ENV_API_KEY }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
