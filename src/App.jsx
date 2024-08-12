@@ -5,10 +5,12 @@ const appid = "eec3ba575fb243ecd5b78d133bad8f5d";
 const baseUrl = "http://api.openweathermap.org/data/2.5/forecast?";
 
 function App() {
-  const [data, setData] = useState("loding ...");
+  const [data, setData] = useState({ city: "Loding" });
   useEffect(() => {
     getGeolocation().then((coords) => {
-      fetch(`${baseUrl}lat=${coords.lat}&lon=${coords.lon}&appid=${appid}`)
+      fetch(
+        `${baseUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${appid}`
+      )
         .then((res) => {
           return res.json();
         })
@@ -19,7 +21,7 @@ function App() {
     });
   }, []);
 
-  return <h2>loding ...</h2>;
+  return <h2>{"data.city"}</h2>;
 }
 
 export default App;
