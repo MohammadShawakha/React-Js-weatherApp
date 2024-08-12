@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getGeolocation } from "./utils/geo-util";
 const appid = import.meta.env.ENV_API_KEY;
-const baseUrl = "http://api.openweathermap.org/data/2.5/forecast?";
+const baseUrl = "https://api.openweathermap.org/data/2.5/forecast?";
 
 function App() {
   const [data, setData] = useState({ city: "Loding" });
