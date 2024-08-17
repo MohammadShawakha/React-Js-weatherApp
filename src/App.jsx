@@ -1,27 +1,32 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { apiCall } from "./utils/api-call-util";
 import { getGeolocation } from "./utils/geo-util";
-const appid = import.meta.env.ENV_API_KEY;
-const baseUrl = "https://api.openweathermap.org/data/2.5/forecast?";
 
 function App() {
-  const [data, setData] = useState({ city: "Loding" });
+  const [location, setLocation] = useState("");
+  const [days, setDays] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadData = async () => {
+    const appData = await apiCall(await getGeolocation());
+    setLocation(appData.city);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    getGeolocation().then((coords) => {
-      fetch(
-        `${baseUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${appid}`
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setData(jsonData);
-          console.log(jsonData);
-        });
-    });
+    loadData();
   }, []);
 
-  return <h2>{"data.city"}</h2>;
+  if (isLoading) {
+    return <h2>Loading ...</h2>;
+  }
+
+  return (
+    <>
+      <h1>{`${location.name}, ${location.country}`}</h1>
+    </>
+  );
 }
 
 export default App;
